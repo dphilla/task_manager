@@ -6,6 +6,7 @@ class TaskManagerApp < Sinatra::Base
 
   get '/' do
     erb :dashboard
+    # require 'pry';binding.pry
   end
 
   get '/tasks' do
@@ -17,7 +18,7 @@ class TaskManagerApp < Sinatra::Base
     erb :new
   end
 
-  get '/tasks/:id' do
+  get '/tasks/:id' do #this is dynamic
      @task = Task.find(params[:id])
      erb :show
    end
@@ -26,6 +27,11 @@ class TaskManagerApp < Sinatra::Base
     task = Task.new(params[:task])
     task.save
     redirect '/tasks'
+  end
+
+  get '/tasks/:id/edit' do
+    @task = Task.find(params[:id])
+    erb :edit
   end
 
 end
